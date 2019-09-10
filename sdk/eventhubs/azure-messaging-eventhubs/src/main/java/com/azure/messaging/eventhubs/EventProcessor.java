@@ -5,8 +5,8 @@ package com.azure.messaging.eventhubs;
 
 import com.azure.core.amqp.implementation.TracerProvider;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.messaging.eventhubs.implementation.PartitionBasedLoadBalancer;
-import com.azure.messaging.eventhubs.implementation.PartitionPumpManager;
+import com.azure.core.amqp.implementation.PartitionBasedLoadBalancer;
+import com.azure.core.amqp.implementation.PartitionPumpManager;
 import com.azure.messaging.eventhubs.models.EventPosition;
 import java.util.Objects;
 import java.util.ServiceLoader;
