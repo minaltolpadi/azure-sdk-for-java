@@ -5,7 +5,6 @@ package com.azure.core.amqp.models;
 
 import com.azure.core.implementation.annotation.Immutable;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.messaging.eventhubs.EventHubClientBuilder;
 
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
@@ -13,9 +12,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * Properties for configuring proxies with Event Hubs.
- *
- * @see EventHubClientBuilder#proxyConfiguration(ProxyConfiguration)
+ * Properties for configuring proxies that can use an AMQP transport protocol.
  */
 @Immutable
 public class ProxyConfiguration implements AutoCloseable {
