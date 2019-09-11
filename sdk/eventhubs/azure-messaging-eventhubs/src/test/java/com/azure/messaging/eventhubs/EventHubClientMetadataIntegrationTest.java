@@ -14,7 +14,7 @@ import com.azure.core.amqp.implementation.ConnectionOptions;
 import com.azure.core.amqp.implementation.ConnectionStringProperties;
 import com.azure.messaging.eventhubs.implementation.IntegrationTestBase;
 import com.azure.core.amqp.implementation.ReactorHandlerProvider;
-import com.azure.messaging.eventhubs.models.ProxyConfiguration;
+import com.azure.core.amqp.models.ProxyConfiguration;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

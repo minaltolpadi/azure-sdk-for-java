@@ -1,8 +1,10 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.messaging.eventhubs.models;
+package com.azure.core.amqp.models;
 
+import com.azure.core.amqp.models.ProxyAuthenticationType;
+import com.azure.core.amqp.models.ProxyConfiguration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -14,7 +16,7 @@ import org.junit.runner.RunWith;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 
-import static com.azure.messaging.eventhubs.models.ProxyConfiguration.SYSTEM_DEFAULTS;
+import static com.azure.core.amqp.models.ProxyConfiguration.SYSTEM_DEFAULTS;
 
 @RunWith(Theories.class)
 public class ProxyConfigurationTest {

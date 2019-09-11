@@ -138,7 +138,7 @@ class RequestResponseChannel implements Closeable {
 
     private void start() {
         if (!hasOpened.getAndSet(true)) {
-            sendLink.open();
+            sendLink.open();E
             receiveLink.open();
         }
     }

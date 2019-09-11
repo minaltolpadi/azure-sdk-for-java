@@ -14,7 +14,7 @@ import com.azure.core.amqp.implementation.ReactorHandlerProvider;
 import com.azure.messaging.eventhubs.models.EventHubConsumerOptions;
 import com.azure.messaging.eventhubs.models.EventHubProducerOptions;
 import com.azure.messaging.eventhubs.models.EventPosition;
-import com.azure.messaging.eventhubs.models.ProxyConfiguration;
+import com.azure.core.amqp.models.ProxyConfiguration;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;

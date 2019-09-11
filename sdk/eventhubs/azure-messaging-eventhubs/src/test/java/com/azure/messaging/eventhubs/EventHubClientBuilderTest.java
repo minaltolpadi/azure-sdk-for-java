@@ -7,8 +7,8 @@ import static org.junit.Assert.assertNotNull;
 
 import com.azure.core.amqp.TransportType;
 import com.azure.messaging.eventhubs.implementation.ClientConstants;
-import com.azure.messaging.eventhubs.models.ProxyAuthenticationType;
-import com.azure.messaging.eventhubs.models.ProxyConfiguration;
+import com.azure.core.amqp.models.ProxyAuthenticationType;
+import com.azure.core.amqp.models.ProxyConfiguration;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URI;
