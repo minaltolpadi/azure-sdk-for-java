@@ -5,8 +5,8 @@ package com.azure.core.amqp.implementation;
 
 import com.azure.core.amqp.RetryOptions;
 import com.azure.core.amqp.TransportType;
+import com.azure.core.amqp.models.ProxyConfiguration;
 import com.azure.core.credentials.TokenCredential;
-import com.azure.messaging.eventhubs.models.ProxyConfiguration;
 import reactor.core.scheduler.Scheduler;
 
 import java.util.Objects;
@@ -27,22 +27,14 @@ public class ConnectionOptions {
     public ConnectionOptions(String host, String eventHubName, TokenCredential tokenCredential,
                              CBSAuthorizationType authorizationType, TransportType transport, RetryOptions retryOptions,
                              ProxyConfiguration proxyConfiguration, Scheduler scheduler) {
-        Objects.requireNonNull(host);
-        Objects.requireNonNull(eventHubName);
-        Objects.requireNonNull(tokenCredential);
-        Objects.requireNonNull(transport);
-        Objects.requireNonNull(retryOptions);
-        Objects.requireNonNull(proxyConfiguration);
-        Objects.requireNonNull(scheduler);
-
-        this.host = host;
-        this.eventHubName = eventHubName;
-        this.tokenCredential = tokenCredential;
-        this.authorizationType = authorizationType;
-        this.transport = transport;
-        this.retryOptions = retryOptions;
-        this.proxyConfiguration = proxyConfiguration;
-        this.scheduler = scheduler;
+        this.host = Objects.requireNonNull(host, "'host' cannot be null.");
+        this.eventHubName = Objects.requireNonNull(eventHubName, "'eventHubName' cannot be null.");
+        this.tokenCredential = Objects.requireNonNull(tokenCredential, "'tokenCredential' cannot be null.");
+        this.authorizationType = Objects.requireNonNull(authorizationType, "'authorizationType' cannot be null.");
+        this.transport = Objects.requireNonNull(transport, "'transport' cannot be null.");
+        this.retryOptions = Objects.requireNonNull(retryOptions, "'retryOptions' cannot be null.");
+        this.proxyConfiguration = Objects.requireNonNull(proxyConfiguration, "'proxyConfiguration' cannot be null.");
+        this.scheduler = Objects.requireNonNull(scheduler, "'scheduler' cannot be null.");
     }
 
     public String host() {
