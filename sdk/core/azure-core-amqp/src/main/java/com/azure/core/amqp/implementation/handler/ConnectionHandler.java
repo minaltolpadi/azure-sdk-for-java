@@ -5,8 +5,9 @@ package com.azure.core.amqp.implementation.handler;
 
 import com.azure.core.amqp.exception.ErrorContext;
 import com.azure.core.amqp.exception.ExceptionUtil;
+import com.azure.core.amqp.implementation.ClientConstants;
+import com.azure.core.amqp.implementation.SdkInfo;
 import com.azure.core.util.logging.ClientLogger;
-import com.azure.messaging.eventhubs.implementation.ClientConstants;
 import org.apache.qpid.proton.Proton;
 import org.apache.qpid.proton.amqp.Symbol;
 import org.apache.qpid.proton.amqp.transport.ErrorCondition;
@@ -45,8 +46,8 @@ public class ConnectionHandler extends Handler {
      * @param hostname Hostname to use for socket creation. If there is a proxy configured, this could be a proxy's
      *     IP address.
      */
-    public ConnectionHandler(final String connectionId, final String hostname) {
-        this(connectionId, hostname, new ClientLogger(ConnectionHandler.class));
+    public ConnectionHandler(final String connectionId, final String hostname, final SdkInfo sdkInfo) {
+        this(connectionId, hostname, sdkInfo, new ClientLogger(ConnectionHandler.class));
     }
 
     /**
@@ -57,21 +58,24 @@ public class ConnectionHandler extends Handler {
      *     IP address.
      * @param logger The service logger to use.
      */
-    protected ConnectionHandler(final String connectionId, final String hostname, final ClientLogger logger) {
+    protected ConnectionHandler(String connectionId, String hostname, SdkInfo sdkInfo, ClientLogger logger) {
         super(connectionId, hostname);
 
         add(new Handshaker());
         this.logger = logger;
 
         this.connectionProperties = new HashMap<>();
-        this.connectionProperties.put(PRODUCT.toString(), ClientConstants.PRODUCT_NAME);
-        this.connectionProperties.put(VERSION.toString(), ClientConstants.CURRENT_JAVA_CLIENT_VERSION);
+        this.connectionProperties.put(PRODUCT.toString(), sdkInfo.getProductName());
+        this.connectionProperties.put(VERSION.toString(), sdkInfo.getVersion());
         this.connectionProperties.put(PLATFORM.toString(), ClientConstants.PLATFORM_INFO);
         this.connectionProperties.put(FRAMEWORK.toString(), ClientConstants.FRAMEWORK_INFO);
 
-        final String userAgent = ClientConstants.USER_AGENT.length() <= MAX_USER_AGENT_LENGTH
-            ? ClientConstants.USER_AGENT
-            : ClientConstants.USER_AGENT.substring(0, MAX_USER_AGENT_LENGTH);
+        final String userAgentString = String.format("%s/%s %s;%s", sdkInfo.getProductName(), sdkInfo.getVersion(),
+            System.getProperty("java.version"), ClientConstants.PLATFORM_INFO);
+
+        final String userAgent = userAgentString.length() <= MAX_USER_AGENT_LENGTH
+            ? userAgentString
+            : userAgentString.substring(0, MAX_USER_AGENT_LENGTH);
 
         this.connectionProperties.put(USER_AGENT.toString(), userAgent);
     }

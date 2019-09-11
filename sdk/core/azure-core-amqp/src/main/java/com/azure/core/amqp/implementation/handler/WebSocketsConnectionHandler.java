@@ -3,6 +3,7 @@
 
 package com.azure.core.amqp.implementation.handler;
 
+import com.azure.core.amqp.implementation.SdkInfo;
 import com.azure.core.util.logging.ClientLogger;
 import com.microsoft.azure.proton.transport.ws.impl.WebSocketImpl;
 import org.apache.qpid.proton.engine.Event;
@@ -28,8 +29,8 @@ public class WebSocketsConnectionHandler extends ConnectionHandler {
      * @param hostname Hostname to use for socket creation. If there is a proxy configured, this could be a
      *         proxy's IP address.
      */
-    public WebSocketsConnectionHandler(final String connectionId, final String hostname) {
-        super(connectionId, hostname, new ClientLogger(WebSocketsConnectionHandler.class));
+    public WebSocketsConnectionHandler(final String connectionId, final String hostname, final SdkInfo sdkInfo) {
+        super(connectionId, hostname, sdkInfo, new ClientLogger(WebSocketsConnectionHandler.class));
     }
 
     @Override
