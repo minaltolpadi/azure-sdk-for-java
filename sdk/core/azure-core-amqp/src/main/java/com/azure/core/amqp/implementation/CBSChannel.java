@@ -42,18 +42,14 @@ class CBSChannel extends EndpointStateNotifierBase implements CBSNode {
                ReactorProvider provider, ReactorHandlerProvider handlerProvider, RetryOptions retryOptions) {
         super(new ClientLogger(CBSChannel.class));
 
-        Objects.requireNonNull(connection);
-        Objects.requireNonNull(tokenCredential);
-        Objects.requireNonNull(authorizationType);
-        Objects.requireNonNull(provider);
-        Objects.requireNonNull(handlerProvider);
-        Objects.requireNonNull(retryOptions);
+        Objects.requireNonNull(handlerProvider, "'' cannot be null.");
 
-        this.authorizationType = authorizationType;
-        this.retryOptions = retryOptions;
-        this.connection = connection;
-        this.credential = tokenCredential;
-        this.provider = provider;
+        this.authorizationType = Objects.requireNonNull(authorizationType, "'authorizationType' cannot be null.");
+        this.retryOptions = Objects.requireNonNull(retryOptions, "'retryOptions' cannot be null.");
+        this.connection = Objects.requireNonNull(connection, "'connection' cannot be null.");
+        this.credential = Objects.requireNonNull(tokenCredential, "'tokenCredential' cannot be null.");
+        this.provider = Objects.requireNonNull(provider, "'provider' cannot be null.");
+
         this.cbsChannelMono = connection.createSession(SESSION_NAME)
             .cast(ReactorSession.class)
             .map(session -> new RequestResponseChannel(connection.getIdentifier(), connection.getHost(), LINK_NAME,
@@ -75,6 +71,8 @@ class CBSChannel extends EndpointStateNotifierBase implements CBSNode {
         return credential.getToken(tokenAudience).flatMap(accessToken -> {
             request.setBody(new AmqpValue(accessToken.token()));
 
+            // Do not change accessToken.expiresOn(); to a method reference, at build time, this fails to compile.
+            // https://bugs.openjdk.java.net/browse/JDK-8221420
             return cbsChannelMono.flatMap(x -> x.sendWithAck(request, provider.getReactorDispatcher()))
                 .then(Mono.fromCallable(() -> accessToken.expiresOn()));
         });
