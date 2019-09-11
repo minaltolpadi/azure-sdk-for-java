@@ -20,8 +20,8 @@ class TokenResourceProvider {
     private final String host;
 
     TokenResourceProvider(CBSAuthorizationType authorizationType, String host) {
-        Objects.requireNonNull(authorizationType);
-        Objects.requireNonNull(host);
+        Objects.requireNonNull(authorizationType, "'authorizationType' cannot be null.");
+        Objects.requireNonNull(host, "'host' cannot be null.");
 
         this.host = host;
         this.authorizationType = authorizationType;

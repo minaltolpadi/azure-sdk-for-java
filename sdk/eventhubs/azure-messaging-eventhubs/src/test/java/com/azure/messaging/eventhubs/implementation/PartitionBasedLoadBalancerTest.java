@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.core.amqp.implementation;
+package com.azure.messaging.eventhubs.implementation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -111,7 +111,7 @@ public class PartitionBasedLoadBalancerTest {
 
             assertNotNull(partitionOwnership);
             assertEquals(index + 1, partitionOwnership.size());
-            partitionOwnership.forEach(po -> Assert.assertEquals("owner1", partitionOwnership.get(0).ownerId()));
+            partitionOwnership.forEach(po -> assertEquals("owner1", partitionOwnership.get(0).ownerId()));
             assertEquals(index + 1, partitionOwnership.stream().map(po -> po.partitionId()).distinct().count());
         });
     }
@@ -172,7 +172,7 @@ public class PartitionBasedLoadBalancerTest {
             List<PartitionOwnership> partitionOwnership = partitionManager.listOwnership(eventHubName,
                 consumerGroupName).collectList().block();
             assertEquals(index + 1, partitionOwnership.size());
-            partitionOwnership.forEach(po -> Assert.assertEquals("owner1", partitionOwnership.get(0).ownerId()));
+            partitionOwnership.forEach(po -> assertEquals("owner1", partitionOwnership.get(0).ownerId()));
             assertEquals(index + 1,
                 partitionOwnership.stream().map(PartitionOwnership::partitionId).distinct().count());
         });
@@ -394,7 +394,7 @@ public class PartitionBasedLoadBalancerTest {
         List<PartitionOwnership> partitionOwnership = partitionManager.listOwnership(eventHubName,
             consumerGroupName).collectList().block();
         assertEquals(3, partitionOwnership.size());
-        partitionOwnership.forEach(po -> Assert.assertEquals("owner1", partitionOwnership.get(0).ownerId()));
+        partitionOwnership.forEach(po -> assertEquals("owner1", partitionOwnership.get(0).ownerId()));
         assertEquals(3, partitionOwnership.stream().map(po -> po.partitionId()).distinct().count());
     }
 
